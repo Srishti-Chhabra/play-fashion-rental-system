@@ -1,0 +1,23 @@
+logs/
+target/
+RUNNING_PID
+
+# bloop and metals
+.bloop
+.bsp
+
+# intellij idea
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
+
+# sbt
+project/project/
+*/project/project/
+project/target/
+target/
+
+#general
+*.class
