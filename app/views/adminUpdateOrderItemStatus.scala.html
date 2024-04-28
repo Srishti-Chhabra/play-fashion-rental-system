@@ -1,0 +1,23 @@
+@import helper._
+
+@(orderId: String, orderItem: OrderItems)(implicit request: RequestHeader)
+
+@adminMain("Update Order Item Status","stylesheets/main.css") {
+    <h1>Update Order Item Status</h1>
+    <form action="@routes.AdminDashboardController.updateStatus()" method="POST">
+        @CSRF.formField
+        <input type="hidden" name="orderId" value="@orderId">
+        <input type="hidden" name="productId" value="@orderItem.productId">
+        <input type="hidden" name="size" value="@orderItem.size">
+        <input type="hidden" name="color" value="@orderItem.color">
+
+        <label for="status">New Status:</label>
+        <select name="status" id="status">
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+
+        <button type="submit">Update Status</button>
+    </form>
+}

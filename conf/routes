@@ -3,8 +3,41 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index()
+GET     /login                                      controllers.LoginController.login()
+POST    /login                                      controllers.LoginController.authenticate()
+GET     /logout                                     controllers.LoginController.logout()
+
+GET     /register                                   controllers.RegistrationController.showRegistrationForm()
+POST    /register                                   controllers.RegistrationController.register()
+
+
+
+GET     /admin-dashboard/products                                   controllers.AdminDashboardController.showProducts()
+GET     /admin-dashboard/products/add                               controllers.AdminDashboardController.showAddProductForm()
+POST    /admin-dashboard/products/add                               controllers.AdminDashboardController.addProduct()
+GET     /admin-dashboard/products/update/:productId/:size/:color    controllers.AdminDashboardController.showUpdateProductForm(productId: String, size: String, color: String)
+POST    /admin-dashboard/products/update                            controllers.AdminDashboardController.updateProduct(productId: String, size: String, color: String, categories: String, material: String)
+POST    /admin-dashboard/products/delete/:productId                 controllers.AdminDashboardController.deleteProduct(productId: String, size: String, color: String)
+
+GET     /admin-dashboard/orders                                     controllers.AdminDashboardController.showOrders()
+GET     /admin-dashboard/orders/update-status/:orderId/:productId/:size/:color controllers.AdminDashboardController.showUpdateStatusForm(orderId: String, productId: String, size: String, color: String)
+POST    /admin-dashboard/orders/update-status                       controllers.AdminDashboardController.updateStatus()
+
+GET     /admin-dashboard/customers                                  controllers.AdminDashboardController.showCustomers()
+
+
+
+GET     /client/home                                                controllers.ClientController.showHome()
+GET     /client/products                                            controllers.ClientController.showProducts()
+GET     /client/products/:productId/:size/:color                    controllers.ClientController.productDetails(productId: String,size: String,color: String)
+
+
+POST    /client/products/:productId/:size/:color/add-to-cart        controllers.CartController.addToCart(productId: String,size: String,color: String)
+GET     /client/cart                                                controllers.CartController.viewCart()
+POST    /client/cart/remove-from-cart/:productId/:size/:color       controllers.CartController.removeFromCart(productId: String, size: String, color: String)
+POST    /client/cart/change-quantity/:productId/:size/:color        controllers.CartController.changeQuantity(productId: String, size: String, color: String, newQuantity: Int)
+POST    /client/cart/place-order                                    controllers.CartController.placeOrder()
+GET     /client/order-confirmation-page/:orderId                    controllers.CartController.orderConfirmation(orderId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

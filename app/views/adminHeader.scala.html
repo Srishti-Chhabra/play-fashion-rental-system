@@ -1,0 +1,14 @@
+@(title: String)
+
+<header>
+    <div class="admin">
+        <h1>My Admin</h1>
+    </div>
+    <mynav>
+        <ul>
+            <li class="@("active".when(title == "Inventory"))"><a href="@routes.AdminDashboardController.showProducts()">Inventory</a></li>
+            <li class="@("active".when(title == "Orders"))"><a href="@routes.AdminDashboardController.showOrders()">Orders</a></li>
+            <li class="@("active".when(title == "Customers"))"><a href="@routes.AdminDashboardController.showCustomers()">Customers</a></li>
+        </ul>
+    </mynav>
+</header>

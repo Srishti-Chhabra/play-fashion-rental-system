@@ -1,0 +1,134 @@
+@import models.User
+@import play.api.data._
+@import play.api.data.Forms._
+@import play.api.i18n.MessagesProvider
+@import helper._
+
+@(userForm: Form[User])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+
+    </style>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("@routes.Assets.versioned("images/background.png")");
+        background-repeat: repeat;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #dcdcdc;
+        max-width: 500px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .registration-card {
+        width: 400px;
+        height: 210px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .form-group {
+        padding: 0px 20px;
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 100%;
+        height: 30px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="registration-card">
+            <h2>Register</h2>
+            <form action="@routes.RegistrationController.register()" method="post">
+                @CSRF.formField
+                <div class="form-group">
+                    <input type="text" name="email" placeholder="Email" class="input-field">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" class="input-field">
+                </div>
+                <button type="submit" class="submit-button">Register</button>
+            </form>
+            @if(userForm.hasGlobalErrors) {
+            <p class="error-message">@userForm.globalErrors.head.message</p>
+            }
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    document.getElementById('registration-form').onsubmit = function(event) {
+        var email = document.getElementById('email').value.trim();
+        var password = document.getElementById('password').value.trim();
+
+        if (!isValidEmail(email)) {
+            alert('Please enter a valid email address.');
+            event.preventDefault();
+            return false;
+        }
+
+        if (!isValidPassword(password)) {
+            alert('Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.');
+            event.preventDefault();
+            return false;
+        }
+
+        return true;
+    };
+
+    function isValidEmail(email) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    }
+
+    function isValidPassword(password) {
+        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@$!%?&])[A-Za-z\d@@$!%?&]{8,}$/;
+        return passwordRegex.test(password);
+    }
+</script>
+</body>
+</html>

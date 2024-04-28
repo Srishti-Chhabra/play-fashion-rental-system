@@ -1,0 +1,35 @@
+@import helper._
+
+@(products: Seq[Product], userOption: Option[String])
+
+@clientMain("Products","stylesheets/clientProducts.css", userOption) {
+<div class="container">
+    <div class="row">
+        @for(product <- products) {
+        <div class="col-md-3 ml-0">
+            <a href="@routes.ClientController.productDetails(product.productId,product.size,product.color)" class="card-link"> <!-- Wrap card content with anchor tag -->
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="@routes.Assets.versioned("images/" + product.productId + "-" + product.color + ".png")" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.brand</h5>
+                        <p class="card-text">@product.productName</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            @if(product.discount > 0) {
+                            <small class="text-muted">
+                                <b>Rental Price: <my style="font-size: 16px">Rs. @product.rentalPrice</my></b><br>
+                                <b>MRP: <my style="font-size: 16px">Rs. @(product.actualPrice - ((product.discount * product.actualPrice) / 100))</my></b> <s>Rs. @product.actualPrice</s> <p style="color:Red">(@(product.discount.toInt)% OFF)</p>
+                            </small>
+                            } else {
+                            <small class="text-muted">
+                                Rental Price: @product.rentalPrice
+                                Price: @product.actualPrice</small>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        }
+    </div>
+</div>
+}

@@ -1,0 +1,29 @@
+@(title: String, userOption: Option[String])
+
+<header>
+    <div class="client">
+        <h1>Rent It Out!</h1>
+    </div>
+    <mynav>
+        <ul>
+            <li class="@("active".when(title == "Home"))"><a href="@routes.ClientController.showHome()">Home</a></li>
+            <li class="@("active".when(title == "Products"))"><a href="@routes.ClientController.showProducts()">Products</a></li>
+            <li class="@("active".when(title == "About"))"><a href="#">About</a></li>
+            <li class="@("active".when(title == "Contact"))"><a href="#">Contact</a></li>
+        </ul>
+    </mynav>
+    <div class="buttons">
+        @if(userOption.isEmpty) {
+        <div class="dropdown">
+            <button class="dropbtn">Login/Sign up</button>
+            <div class="dropdown-content">
+                <a href="@routes.LoginController.login()">Login</a>
+                <a href="@routes.RegistrationController.showRegistrationForm()">Sign up</a>
+            </div>
+        </div>
+        } else {
+        <a href="@routes.LoginController.logout()" class="button logout">Logout</a>
+        }
+        <a href="@routes.CartController.viewCart()" class="button bag">Bag</a>
+    </div>
+</header>

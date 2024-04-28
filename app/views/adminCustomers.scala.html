@@ -1,0 +1,39 @@
+@import models.Customer
+@import helper._
+@import play.api.data._
+@import play.api.data.Forms._
+@import play.api.i18n._
+@import play.api.mvc._
+
+@(customers: Seq[Customer])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@adminMain("Customers","stylesheets/adminProducts.css") {
+
+<div class="header-with-button">
+    <h2>Customers</h2>
+</div>
+<table style="">
+    <tr>
+        <th>Customer Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Contact No</th>
+        <th>Address</th>
+        <th>Age</th>
+        <th>Gender</th>
+    </tr>
+    @for(customer <- customers) {
+    <tr>
+        <td>@customer.customerId</td>
+        <td>@customer.firstName</td>
+        <td>@customer.lastName</td>
+        <td>@customer.email</td>
+        <td>@customer.contactNumber</td>
+        <td>@customer.address</td>
+        <td>@customer.age</td>
+        <td>@customer.gender</td>
+    </tr>
+    }
+</table>
+}

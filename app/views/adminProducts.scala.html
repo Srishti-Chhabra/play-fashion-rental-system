@@ -1,0 +1,67 @@
+@import models.Product
+@import helper._
+@import play.api.data._
+@import play.api.data.Forms._
+@import play.api.i18n._
+@import play.api.mvc._
+
+@(products: Seq[Product])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@adminMain("Inventory","stylesheets/adminProducts.css") {
+
+    <div class="header-with-button">
+        <h2>Existing Products</h2>
+        <form action="@routes.AdminDashboardController.showAddProductForm()" method="get" class="add-product-form">
+            @CSRF.formField
+            <button type="submit">Add New Product</button>
+        </form>
+    </div>
+    <table style="">
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Brand</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Actual Price</th>
+            <th>Discount</th>
+            <th>Rental Price</th>
+            <th>Security Charges</th>
+            <th>Convenience Fee</th>
+            <th>Quantity</th>
+            <th>Sustainability Ratings</th>
+            <th>Categories</th>
+            <th>Material</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @for(product <- products) {
+        <tr>
+            <td>@product.productId</td>
+            <td>@product.productName</td>
+            <td>@product.description</td>
+            <td>@product.brand</td>
+            <td>@product.size</td>
+            <td>@product.color</td>
+            <td>@product.actualPrice</td>
+            <td>@product.discount</td>
+            <td>@product.rentalPrice</td>
+            <td>@product.securityCharges</td>
+            <td>@product.convenienceFee</td>
+            <td>@product.quantity</td>
+            <td>@product.sustainabilityRatings</td>
+            <td>@product.categories</td>
+            <td>@product.material</td>
+            <td><form action="@routes.AdminDashboardController.showUpdateProductForm(product.productId, product.size, product.color)" method="get">
+                @CSRF.formField
+                <button type="submit">Update</button>
+            </form></td>
+            <td><form action="@routes.AdminDashboardController.deleteProduct(product.productId, product.size, product.color)" method="post">
+                @CSRF.formField
+                <button type="submit">Delete</button>
+            </form></td>
+        </tr>
+        }
+    </table>
+}

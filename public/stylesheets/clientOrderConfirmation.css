@@ -1,0 +1,51 @@
+.order-confirmation-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.order-confirmation-container p{
+    margin-left: 50px;
+}
+
+/* Using Flexbox to center buttons */
+.buttons {
+    display: flex;
+    justify-content: center; /* Aligns items horizontally to the center */
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    gap: 20px; /* Space between buttons, adjust as needed */
+    margin-left: 80px;
+}
+
+.buttons a {
+    margin: 10px 0; /* Adjusted to ensure spacing when wrapped */
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    display: inline-block; /* Ensures padding and margin are respected */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background color change and subtle transform on hover */
+    /* Enhanced appearance */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    font-weight: 500; /* Slightly bolder text */
+    font-size: 16px; /* Larger text for better readability */
+}
+
+.btn-primary {
+    background-color: #fb607f;
+}
+
+.btn-primary:hover {
+    background-color: #d7837f; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.btn-secondary {
+    background-color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #555; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+

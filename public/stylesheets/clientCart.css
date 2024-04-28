@@ -1,0 +1,134 @@
+.cart-container {
+    display: flex;
+    padding: 20px 60px;
+}
+
+.cart-items {
+    margin: 20px;
+    flex: 1;
+}
+
+.cart-items ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-items li {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.cart-items h2{
+    margin-top: 100px;
+    text-align: center;
+}
+
+.cross-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 5px 10px; /* Adjust for size */
+    font-size: 20px; /* Adjust for size */
+}
+
+.cross-button:hover {
+    background-color: #f4f4f4; /* Light grey background on hover */
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+}
+
+.product-image {
+    margin-right: 20px;
+}
+
+.product-image img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.discounted-price {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.cross-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.cross-button:hover {
+    background-color: #555;
+}
+
+.update-button {
+    background-color: #fb607f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #d7837f;
+}
+
+
+
+.price-details {
+    flex: 0 0 400px; /* Set a fixed width for the price details */
+    background-color: #fff; /* Card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 20px; /* Padding inside the card */
+    margin: 20px; /* Space from the cart items or any surrounding content */
+    width: 300px; /* Fixed width, but feel free to adjust */
+    height: 215px;
+    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+/* Additional styling for internal elements can enhance the card's appearance */
+.price-details h3 {
+    margin-top: 0;
+    color: #333; /* Darker text color for the heading */
+}
+
+.price-details .total-amount {
+    margin-top: 10px; /* Space above the total amount */
+}
+
+.price-details button {
+    display: block; /* Ensures the button fills the card width */
+    width: 100%; /* Full-width button */
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 0; /* Padding for the button */
+    background-color: #fb607f; /* Example button color */
+    color: white; /* Text color for the button */
+    border: none; /* Removes border */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Changes cursor to indicate action */
+}
+
+.price-details button:hover {
+    background-color: #d7837f; /* Darker shade on hover */
+}

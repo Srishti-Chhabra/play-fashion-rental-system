@@ -1,0 +1,36 @@
+@import helper._
+@import play.api.i18n._
+
+@(productForm: Form[Product], productId: String, size: String, color: String, categories: String, material: String)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@adminMain("Update Product","stylesheets/main.css") {
+    <h1>Update Product</h1>
+    @form(routes.AdminDashboardController.updateProduct(productId, size, color, categories, material)) {
+        @CSRF.formField
+        @inputText(productForm("productId"), '_label -> "Product ID")
+        @inputText(productForm("productName"), '_label -> "Product Name")
+        @inputText(productForm("description"), '_label -> "Description")
+        @inputText(productForm("brand"), '_label -> "Brand")
+        @inputText(productForm("size"), '_label -> "Size")
+        @inputText(productForm("color"), '_label -> "Color")
+        @inputText(productForm("actualPrice"), '_label -> "Actual Price")
+        @inputText(productForm("discount"), '_label -> "Discount")
+        @inputText(productForm("rentalPrice"), '_label -> "Rental Price")
+        @inputText(productForm("securityCharges"), '_label -> "Security Charges")
+        @inputText(productForm("convenienceFee"), '_label -> "Convenience Fee")
+        @inputText(productForm("quantity"), '_label -> "Quantity")
+        @inputText(productForm("sustainabilityRatings"), '_label -> "Sustainability Ratings")
+        @inputText(productForm("categories"), '_label -> "Categories")
+        @inputText(productForm("material"), '_label -> "Material")
+
+        <button type="submit">Update Product</button>
+    }
+
+    @if(productForm.hasErrors) {
+        <ul>
+            @productForm.errors.foreach { error =>
+                <li>@error.message</li>
+            }
+        </ul>
+    }
+}

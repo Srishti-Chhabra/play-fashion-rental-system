@@ -1,0 +1,108 @@
+/* Base styles to ensure consistency */
+body, h2, p, button, select {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Container for the product image and details to align them side by side */
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Style for the product image section */
+.product-image {
+    flex: 1 1 60%; /* Increase the width allocation for the image */
+    max-width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 500px; /* Increase maximum size of the image */
+    height: auto;
+    border-radius: 8px; /* Soften the edges of the images */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Slight shadow for depth */
+}
+
+/* Style for the product details section */
+.product-details {
+    flex: 1 1 40%; /* Decrease the width allocation for details */
+    max-width: 40%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.product-details h2  {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.product-details p {
+    color: #666;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+/* Style for the actions area (quantity selector, add to cart, buy now) */
+.product-actions {
+    margin-top: 20px;
+}
+
+.product-actions select,
+.product-actions button {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.product-actions button {
+    width: 400px;
+    background-color: #fb607f;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition on hover */
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.product-actions button:hover {
+    background-color: #d7837f;
+    transform: scale(1.05);
+}
+
+/* Fix for forms displayed inline */
+form {
+    display: inline;
+}
+
+/* Ensure accessibility for forms */
+button, select {
+    outline: none;
+}
+
+/* Additional media queries for responsiveness */
+@media (max-width: 768px) {
+    .product-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image, .product-details {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,66 @@
+@import helper._
+
+@(cartItems: Seq[(CartItem, Product)], userOption: Option[String])(implicit request: RequestHeader)
+
+@clientMain("Cart", "stylesheets/clientCart.css", userOption) {
+<div class="cart-container">
+    <div class="cart-items">
+        @if(cartItems.nonEmpty) {
+        <ul>
+            @for((cartItem, product) <- cartItems) {
+            <li>
+                <div class="product-details">
+                    <div class="product-image">
+                        <img src="@routes.Assets.versioned("images/" + product.productId + "-" + product.color + ".png")" alt="@product.productName Image" onerror="this.onerror=null;this.src='@routes.Assets.versioned("images/fallback.png")';">
+                    </div>
+                    <div class="product-info">
+                        <h3>@product.brand</h3>
+                        <p>@product.productName</p>
+                        <p>Size: @product.size</p>
+                        <form id="updateQuantityForm" action="@routes.CartController.changeQuantity(cartItem.productId, cartItem.size, cartItem.color, 1)" method="post">
+                            @CSRF.formField
+                            <select id="newQuantity" name="newQuantity">
+                                @for(i <- 1 to 10) {
+                                <option value="@i" @(if(cartItem.quantity == i) "selected" else "")>@i</option>
+                                }
+                            </select>
+                            <script>
+                                document.getElementById('newQuantity').addEventListener('change', function() {
+                                    var selectedQuantity = this.value;
+                                    var formAction = "@routes.CartController.changeQuantity(cartItem.productId, cartItem.size, cartItem.color, 0)".replace('0', selectedQuantity);
+                                    document.getElementById('updateQuantityForm').setAttribute('action', formAction);
+                                });
+                            </script>
+                            <button type="submit" class="update-button">Update Quantity</button>
+                        </form>
+                        <div class="discounted-price">
+                            <span class="rental-price">Rental Price: <strong>Rs. @(product.rentalPrice * cartItem.quantity)</strong></span><br>
+                        </div>
+                    </div>
+                </div>
+                <form action="@routes.CartController.removeFromCart(cartItem.productId, cartItem.size, cartItem.color)" method="post">
+                    @CSRF.formField
+                    <button type="submit" class="cross-button">&#215;</button>
+                </form>
+            </li>
+            }
+        </ul>
+        } else {
+        <h2>Your cart is empty!</h2>
+        }
+    </div>
+    @if(cartItems.nonEmpty) {
+        <div class="price-details">
+            <h3>Price Details</h3>
+            <p>Total Items: @cartItems.size</p>
+            <div class="total-amount">
+                <strong>Total Amount: Rs. @(cartItems.map { case (cartItem, product) => product.rentalPrice * cartItem.quantity }.sum)</strong>
+            </div>
+            <form action="@routes.CartController.placeOrder()" method="post">
+                @CSRF.formField
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    }
+</div>
+}

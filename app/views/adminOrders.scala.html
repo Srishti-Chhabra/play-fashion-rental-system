@@ -1,0 +1,58 @@
+@import models.Order
+@import helper._
+@import play.api.data._
+@import play.api.data.Forms._
+@import play.api.i18n._
+@import play.api.mvc._
+
+@(orders: Seq[Order])(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@adminMain("Orders","stylesheets/adminProducts.css") {
+
+<div class="header-with-button">
+    <h2>Orders</h2>
+</div>
+<table>
+    <tr>
+        <th>Order Id</th>
+        <th>Customer Id</th>
+        <th>Order Address</th>
+        <th>Total</th>
+        <th>Payment Id</th>
+        <th>Items</th>
+    </tr>
+    @for(order <- orders) {
+    <tr>
+        <td>@order.orderId</td>
+        <td>@order.customerId</td>
+        <td>@order.orderAddress</td>
+        <td>@order.total</td>
+        <td>@order.paymentId</td>
+        <td>
+            <table>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Order Status</th>
+                </tr>
+                @for(orderItem <- order.orderItems) {
+                <tr>
+                    <td>@orderItem.productId</td>
+                    <td>@orderItem.size</td>
+                    <td>@orderItem.color</td>
+                    <td>@orderItem.quantity</td>
+                    <td>@orderItem.orderStatus</td>
+                    <td><form action="@routes.AdminDashboardController.showUpdateStatusForm(order.orderId, orderItem.productId, orderItem.size, orderItem.color)" method="get">
+                        @CSRF.formField
+                        <button type="submit">Update</button>
+                    </form></td>
+                </tr>
+                }
+            </table>
+        </td>
+    </tr>
+    }
+</table>
+}

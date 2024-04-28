@@ -1,0 +1,18 @@
+@(orderId: String, userOption: Option[String])
+
+@clientMain("Order Confirmation", "stylesheets/clientOrderConfirmation.css", userOption) {
+<div class="order-confirmation-container">
+    <br>
+    <br>
+    <br>
+    <h1>Thank you for your order!</h1>
+    <p>Your order ID is: @orderId</p>
+
+    <div class="buttons">
+        <!-- View Order Button -->
+        <a href="#" class="btn btn-primary">View Order</a>
+        <!-- Continue Shopping Button -->
+        <a href="@routes.ClientController.showProducts()" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+</div>
+}

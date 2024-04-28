@@ -1,0 +1,101 @@
+@import models.User
+@import play.api.data._
+@import play.api.data.Forms._
+@import play.api.i18n._
+@import play.api.mvc._
+@import helper._
+
+@(userForm: Form[User])(implicit request: RequestHeader, messagesProvider: MessagesProvider, flash: Flash)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("@routes.Assets.versioned("images/background.png")");
+        background-repeat: repeat;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #dcdcdc;
+        max-width: 500px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-card {
+        width: 400px;
+        height: 210px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .form-group {
+        padding: 0px 20px;
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 100%;
+        height: 30px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="login-card">
+        <h2>Login</h2>
+        <form action="@routes.LoginController.authenticate()" method="post">
+            @CSRF.formField
+            <div class="form-group">
+                <input type="text" name="email" placeholder="Email" class="input-field">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="input-field">
+            </div>
+            <button type="submit" class="submit-button">Login</button>
+        </form>
+        @if(userForm.hasGlobalErrors) {
+            <p class="error-message">@userForm.globalErrors.head.message</p>
+        }
+    </div>
+</div>
+</body>
+</html>

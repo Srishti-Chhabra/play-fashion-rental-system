@@ -1,0 +1,76 @@
+@import helper._
+
+@(product: Product, colors: List[String], sizes: List[String], cartItems: Option[Seq[CartItem]], quantityInCart: Int, userOption: Option[String])(implicit request: RequestHeader)
+
+@clientMain(product.productName + " | " + product.productId, "stylesheets/clientProductDetails.css", userOption) {
+<div class="product-container">
+    <div class="product-image">
+        <img src="@routes.Assets.versioned("images/" + product.productId + "-" + product.color + ".png")" alt="@product.productName Image" onerror="this.onerror=null;this.src='@routes.Assets.versioned("images/fallback.png")';">
+    </div>
+    <div class="product-details">
+        <b><p style="font-size: 25px;">@product.brand</p></b>
+        <b><p>@product.productName</p></b>
+        <hr>
+        <div class="price-section">
+            @if(product.discount > 0) {
+            <div class="discounted-price">
+                <span class="rental-price">Rental Price: <strong>Rs. @product.rentalPrice</strong></span><br>
+                <span class="actual-price">MRP: <strong>Rs. @(product.actualPrice - ((product.discount * product.actualPrice) / 100))</strong> <s>Rs. @product.actualPrice</s></span>
+                <span class="discount-percent" style="color:red;">(@product.discount.toInt% OFF)</span>
+            </div>
+            } else {
+            <div class="normal-price">
+                Rental Price: <strong>Rs. @product.rentalPrice</strong><br>
+                Price: <strong>Rs. @product.actualPrice</strong>
+            </div>
+            }
+        </div>
+        <br>
+        <div class="color-selection">
+            <b><label for="color">Colors:</label><br></b>
+            @for(color <- colors) {
+            <input type="radio" id="@color" name="color" value="@color" @(if(color == product.color) "checked" else "") onchange="window.location.href='@routes.ClientController.productDetails(product.productId, product.size, color).url'">
+            <label for="@color">@color.capitalize</label>
+            }
+        </div>
+        <br>
+        <div class="size-selection">
+            <b><label for="size">Sizes:</label><br></b>
+            @for(size <- sizes) {
+            <input type="radio" id="@size" name="size" value="@size" @(if(size == product.size) "checked" else "") onchange="window.location.href='@routes.ClientController.productDetails(product.productId, size, product.color).url'">
+            <label for="@size">@size.capitalize</label>
+            }
+        </div>
+        <br>
+        <div id="productDetails">
+            <b><label for="details">Product Details:</label><br></b>
+            <p>Description: @product.description</p>
+            <p>Material: @product.material</p>
+            <p>Sustainability Ratings: @product.sustainabilityRatings</p>
+        </div>
+        <div class="product-actions">
+            @if(product.quantity >= 1) {
+                @if(cartItems.isDefined) {
+                    @if((quantityInCart + 1) <= product.quantity) {
+                        <form action="@routes.CartController.addToCart(product.productId, product.size, product.color)" method="post">
+                            @CSRF.formField
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    } else {
+                    <button>Out Of Stock</button>
+                    }
+                } else {
+                    <form action="@routes.CartController.addToCart(product.productId, product.size, product.color)" method="post">
+                        @CSRF.formField
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                }
+            } else {
+            <p>Out of Stock</p>
+            }
+        </div>
+    </div>
+</div>
+}
+
+
